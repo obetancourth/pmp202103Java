@@ -1,5 +1,7 @@
 package com.unicahiccpmp.utilities;
 
+import java.util.Scanner;
+
 public class Layout {
     //Imprimir una linea de Separación
     public static void printSeparator () {
@@ -47,6 +49,14 @@ public class Layout {
         Selecciones una opción :
         
         */
+    }
+    public static String obtenerValorParaCampo(String Etiqueta, String ValorPredeterminado, Scanner entradaTeclado){
+        System.out.println(Etiqueta + " (" + ValorPredeterminado + ") :");
+        String valor = entradaTeclado.nextLine();
+        if (valor.isEmpty()){
+            return ValorPredeterminado;
+        }
+        return valor;
     }
     
 }
