@@ -6,6 +6,7 @@
 package com.unicahiccpmp.musica;
 
 import java.util.Date;
+import java.util.ArrayList;
 
 /**
  *
@@ -102,6 +103,18 @@ public class MusicItem {
         this._autores = autores;
         this._album = album;
         this._fechaLanzamiento =  fechaLanzamiento;
+    }
+    
+    public ArrayList<String> obtenerCampos(){
+        ArrayList<String> campos = new ArrayList<String>();
+        campos.add(String.valueOf(this._id));
+        campos.add(this._nombre);
+        campos.add(this._autores);
+        campos.add(this._album);
+        campos.add("________");
+        
+        return campos;
+        
     }
     // setters y getters 
     

@@ -28,7 +28,7 @@ public class Aplicacion {
     public void activarEvento(String opcionMenu){
         switch(opcionMenu.toUpperCase()){
             case "M":
-                System.out.println("Mostrar Datos");
+                this.mostrarDatos();
                 break;
             case "I":
                 System.out.println("Ingresar Registro");
@@ -66,6 +66,38 @@ public class Aplicacion {
         
         Layout.printSeparator();
         System.out.println(this._MiMusica.size());
+    }
+    
+    private void mostrarDatos(){
+        Layout.printSeparator();
+        ArrayList<String> columnas = new ArrayList<String>();
+        columnas.add("Codigo");
+        columnas.add("Cancion");
+        columnas.add("Autor");
+        columnas.add("Album");
+        columnas.add("Lanzamiento");
+        
+        ArrayList<Integer> anchos = new ArrayList<Integer>();
+        anchos.add(7);
+        anchos.add(20);
+        anchos.add(20);
+        anchos.add(14);
+        anchos.add(14);
+        
+        
+        // |1234567890|123456789012345|
+        try {
+            //Imprimir encabezado
+            Layout.imprimirEnColumna(columnas, anchos, "|");
+            Layout.printSeparator();
+            for(int i = 0; i< this._MiMusica.size(); i++){
+                columnas = ((MusicItem) this._MiMusica.get(i)).obtenerCampos();
+                Layout.imprimirEnColumna(columnas, anchos, "|");
+            }
+            
+        } catch(Exception ex) {
+            System.err.println("Error al imprimir" + ex.getMessage());
+        }
     }
 }
 
