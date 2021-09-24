@@ -62,7 +62,7 @@ public class Layout {
     
     public static void imprimirEnColumna(ArrayList<String> columnas, ArrayList<Integer> anchos, String separator) throws Exception{
         if ( columnas.size() != anchos.size()) {
-            throw new Exception();
+            throw new Exception("Las columnas no coinciden con los anchos");
         }
         System.out.print(separator);
         for (int i = 0; i < columnas.size(); i++){
