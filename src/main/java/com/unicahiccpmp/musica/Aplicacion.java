@@ -11,6 +11,7 @@ import java.time.ZonedDateTime;
 
 import java.util.Scanner;
 import java.util.ArrayList;
+import com.unicahiccpmp.dao.MusicaDB;
 
 /**
  *
@@ -21,10 +22,14 @@ public class Aplicacion {
     private Scanner _EntradaTeclado;
     private ArrayList _MiMusica;
     private int _MiMusicIdCounter;
+    private MusicaDB _MusicModel;
     public Aplicacion(Scanner EntradaTeclado) {
         this._EntradaTeclado = EntradaTeclado;
         this._MiMusica = new ArrayList<MusicItem>();  
         this._MiMusicIdCounter = 0;
+        this._MusicModel = new MusicaDB();
+        this._MusicModel.tableInitialize();
+        this._MiMusica = this._MusicModel.getMusicItems(true);
     }
     
     public void activarEvento(String opcionMenu){
