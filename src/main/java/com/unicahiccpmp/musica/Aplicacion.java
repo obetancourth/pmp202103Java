@@ -68,9 +68,11 @@ public class Aplicacion {
         //fechaLanzamiento.setMonth(mes);
         //fechaLanzamiento.setDate(dia);
         //nuevoMusicItem.setFechaLanzamiento(fechaLanzamiento); 
-        nuevoMusicItem.setId(this._MiMusicIdCounter + 1);
-        this._MiMusicIdCounter ++;
-        this._MiMusica.add(nuevoMusicItem);
+        //nuevoMusicItem.setId(this._MiMusicIdCounter + 1);
+        //this._MiMusicIdCounter ++;
+        //this._MiMusica.add(nuevoMusicItem);
+        this._MusicModel.insertMusicItem(nuevoMusicItem);
+        this._MiMusica = this._MusicModel.getMusicItems(true);
         
         Layout.printSeparator();
         System.out.println(this._MiMusica.size());
@@ -112,12 +114,13 @@ public class Aplicacion {
         Layout.printHeader("Actualizar Registro");
         int selectedId = Integer.valueOf(Layout.obtenerValorParaCampo("Ingrese Codigo Registro", "0", this._EntradaTeclado));
         MusicItem selectMusic = null;
-        for( int i=0; i < this._MiMusica.size(); i++){
-            if( selectedId == ((MusicItem)this._MiMusica.get(i)).getId()) {
-                selectMusic = (MusicItem)this._MiMusica.get(i);
-                break;
-            }
-        }
+//        for( int i=0; i < this._MiMusica.size(); i++){
+//            if( selectedId == ((MusicItem)this._MiMusica.get(i)).getId()) {
+//                selectMusic = (MusicItem)this._MiMusica.get(i);
+//                break;
+//            }
+//        }
+        selectMusic = this._MusicModel.getMusicItemById(selectedId);
         if (selectMusic == null ) {
             System.out.println("Registro solicitado no existe!!!");
         } else {
@@ -127,6 +130,9 @@ public class Aplicacion {
             int anio = Integer.parseInt(Layout.obtenerValorParaCampo("Año de Lanzamiento yyyy", "2020", this._EntradaTeclado));
             int mes = Integer.parseInt(Layout.obtenerValorParaCampo("Mes de Lanzamiento 1-12", "1", this._EntradaTeclado));
             int dia = Integer.parseInt(Layout.obtenerValorParaCampo("Día de Lanzamiento 1-31", "1", this._EntradaTeclado));
+            
+            this._MusicModel.updateMusicItem(selectMusic);
+            this._MiMusica = this._MusicModel.getMusicItems(true);
             Layout.printSeparator();
             System.out.println("Registro Actualizado Satisfactoriamente!!!");
         }
@@ -136,18 +142,21 @@ public class Aplicacion {
     private void eliminarRegistro(){
         Layout.printHeader("Eliminar Registro");
         int selectedId = Integer.valueOf(Layout.obtenerValorParaCampo("Ingrese Codigo Registro", "0", this._EntradaTeclado));
-        int encontradoEnIndice = -1;
-        for( int i=0; i < this._MiMusica.size(); i++){
-            if( selectedId == ((MusicItem)this._MiMusica.get(i)).getId()) {
-                encontradoEnIndice = i;
-                break;
-            }
-        }
-        if (encontradoEnIndice>=0){
+//        int encontradoEnIndice = -1;
+//        for( int i=0; i < this._MiMusica.size(); i++){
+//            if( selectedId == ((MusicItem)this._MiMusica.get(i)).getId()) {
+//                encontradoEnIndice = i;
+//                break;
+//            }
+//        }
+        MusicItem selectedMusic = this._MusicModel.getMusicItemById(selectedId);
+        if (selectedMusic != null){
             Layout.printSeparator();
             String confirmado = Layout.obtenerValorParaCampo("¿Desea Eliminar este Registro? S - N", "N", this._EntradaTeclado);
             if (confirmado.toUpperCase().equals("S")){
-                this._MiMusica.remove(encontradoEnIndice);
+                //this._MiMusica.remove(encontradoEnIndice);
+                this._MusicModel.deleteMusicItem(selectedMusic);
+                 this._MiMusica = this._MusicModel.getMusicItems(true);
                 Layout.printSeparator();
                 System.out.println("Registro Eliminado Satisfactoriamente!!!");
             }
